@@ -1,101 +1,147 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Sistema de Alerta Académica Temprana</title>
+  <meta charset="UTF-8">
 
-<style>
-body{
-  font-family: Arial, sans-serif;
-  background:#f4f4f4;
-}
+  <!-- CLAVE PARA CELULAR -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-.container{
-  max-width:650px;
-  margin:60px auto;
-  background:#fff;
-  padding:35px;
-  border-radius:10px;
-  text-align:center;
-  box-shadow:0 0 10px rgba(0,0,0,.1);
-}
+  <title>Sistema de Alerta Académica Temprana</title>
 
-.logo{
-  max-width:160px;
-  margin-bottom:15px;
-}
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      background:#f4f4f4;
+      margin:0;
+      padding:0;
+    }
 
-h1{
-  color:#5a0f1b;
-  margin-bottom:5px;
-}
+    .container{
+      max-width:650px;
+      margin:60px auto;
+      background:#fff;
+      padding:35px;
+      border-radius:12px;
+      text-align:center;
+      box-shadow:0 0 12px rgba(0,0,0,.1);
+    }
 
-p{
-  color:#555;
-  margin-bottom:30px;
-}
+    .logo{
+      max-width:160px;
+      margin-bottom:15px;
+    }
 
-.btn{
-  display:block;
-  width:100%;
-  padding:15px;
-  margin:15px 0;
-  font-size:16px;
-  border:none;
-  border-radius:6px;
-  cursor:pointer;
-}
+    h1{
+      color:#5a0f1b;
+      margin-bottom:8px;
+      font-size:28px;
+    }
 
-.docente{
-  background:#5a0f1b;
-  color:#fff;
-}
+    p{
+      color:#555;
+      margin-bottom:30px;
+      font-size:16px;
+    }
 
-.tutor{
-  background:#444;
-  color:#fff;
-}
+    /* BOTONES */
+    .btn{
+      display:block;
+      width:100%;
+      padding:16px;
+      margin:15px 0;
+      font-size:17px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      cursor:pointer;
+      transition:opacity .2s ease;
+    }
 
-.btn:hover{
-  opacity:.9;
-}
+    .docente{
+      background:#5a0f1b;
+      color:#fff;
+    }
 
-.footer{
-  margin-top:30px;
-  font-size:12px;
-  color:#777;
-  line-height:1.4;
-}
-</style>
+    .tutor{
+      background:#444;
+      color:#fff;
+    }
+
+    .btn:hover{
+      opacity:.9;
+    }
+
+    .footer{
+      margin-top:30px;
+      font-size:12px;
+      color:#777;
+      line-height:1.5;
+    }
+
+    /* ===== AJUSTE SOLO PARA CELULAR ===== */
+    @media (max-width: 600px) {
+
+      .container{
+        margin:20px 10px;
+        padding:28px 22px;
+      }
+
+      .logo{
+        max-width:130px;
+        margin-bottom:20px;
+      }
+
+      h1{
+        font-size:24px;
+      }
+
+      p{
+        font-size:16px;
+        margin-bottom:25px;
+      }
+
+      .btn{
+        font-size:18px;
+        padding:20px;
+        border-radius:10px;
+      }
+
+      .footer{
+        font-size:13px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="container">
+  <div class="container">
 
-  <img src="logo.svg" alt="CBTis 179" class="logo">
+    <!-- LOGO -->
+    <img src="logo.svg" alt="CBTis 179" class="logo">
 
-  <h1>Alerta Académica Temprana</h1>
-  <p>Sistema institucional de seguimiento y atención académica</p>
+    <h1>Alerta Académica Temprana</h1>
+    <p>Sistema institucional de seguimiento y atención académica</p>
 
-  <button class="btn docente" onclick="location.href='formulario_docente.html'">
-    👩‍🏫 Levantar reporte académico
-  </button>
+    <!-- BOTONES -->
+    <a href="formulario_docente.html" class="btn docente">
+      👩‍🏫 Levantar reporte académico
+    </a>
 
-  <button class="btn tutor" onclick="location.href='dashboard_tutor.html'">
-    👨‍🏫 Acceso tutores (seguimiento)
-  </button>
+    <a href="dashboard_tutor.html" class="btn tutor">
+      👨‍🏫 Acceso tutores (seguimiento)
+    </a>
 
-  <div class="footer">
-    CBTis 179 · Servicios Escolares<br>
-    © Derechos reservados Luis Eduardo Ibarra Hernández<br>
-    Uso institucional
+    <!-- PIE -->
+    <div class="footer">
+      CBTis 179 · Servicios Escolares<br>
+      © Derechos reservados Luis Eduardo Ibarra Hernández<br>
+      Uso institucional
+    </div>
+
   </div>
-
-</div>
 
 </body>
 </html>
-
 
 
