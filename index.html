@@ -1,89 +1,72 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
+<title>Sistema de Alerta Académica Temprana</title>
 
-  <!-- PARA CELULAR -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{
+  font-family: Arial, sans-serif;
+  background:#f4f4f4;
+}
 
-  <title>Sistema de Alerta Académica Temprana</title>
+.container{
+  max-width:650px;
+  margin:60px auto;
+  background:#fff;
+  padding:35px;
+  border-radius:10px;
+  text-align:center;
+  box-shadow:0 0 10px rgba(0,0,0,.1);
+}
 
-  <style>
-    body{
-      font-family: Arial, sans-serif;
-      background:#f4f4f4;
-      margin:0;
-      padding:0;
-    }
+.logo{
+  max-width:160px;
+  margin-bottom:15px;
+}
 
-    .container{
-      max-width:650px;
-      margin:60px auto;
-      background:#fff;
-      padding:35px;
-      border-radius:10px;
-      text-align:center;
-      box-shadow:0 0 10px rgba(0,0,0,.1);
-    }
+h1{
+  color:#5a0f1b;
+  margin-bottom:5px;
+}
 
-    .logo{
-      max-width:160px;
-      margin-bottom:15px;
-    }
+p{
+  color:#555;
+  margin-bottom:30px;
+}
 
-    h1{
-      color:#5a0f1b;
-      margin-bottom:5px;
-    }
+.btn{
+  display:block;
+  width:100%;
+  padding:15px;
+  margin:15px 0;
+  font-size:16px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
 
-    p{
-      color:#555;
-      margin-bottom:30px;
-    }
+.docente{
+  background:#5a0f1b;
+  color:#fff;
+}
 
-    .btn{
-      display:block;
-      width:100%;
-      padding:15px;
-      margin:15px 0;
-      font-size:16px;
-      border:none;
-      border-radius:6px;
-      cursor:pointer;
-    }
+.tutor{
+  background:#444;
+  color:#fff;
+}
 
-    .docente{
-      background:#5a0f1b;
-      color:#fff;
-    }
+.btn:hover{
+  opacity:.9;
+}
 
-    .tutor{
-      background:#444;
-      color:#fff;
-    }
-
-    .btn:hover{
-      opacity:.9;
-    }
-
-    .footer{
-      margin-top:30px;
-      font-size:12px;
-      color:#777;
-      line-height:1.4;
-    }
-
-    /* AJUSTE CELULAR */
-    @media (max-width:600px){
-      .container{
-        margin:20px;
-        padding:25px;
-      }
-      .logo{
-        max-width:120px;
-      }
-    }
-  </style>
+.footer{
+  margin-top:30px;
+  font-size:12px;
+  color:#777;
+  line-height:1.4;
+}
+</style>
 </head>
 
 <body>
@@ -91,17 +74,17 @@
 <div class="container">
 
   <!-- LOGO -->
-  <img src="logo.svg" alt="CBTis 179" class="logo">
+  <img src="./logo.svg" alt="CBTis 179" class="logo">
 
   <h1>Alerta Académica Temprana</h1>
   <p>Sistema institucional de seguimiento y atención académica</p>
 
   <!-- BOTONES -->
-  <button class="btn docente" onclick="location.href='formulario docente.html'">
+  <button class="btn docente" onclick="location.href='index.html'">
     👩‍🏫 Levantar reporte académico
   </button>
 
-  <button class="btn tutor" onclick="location.href='dashboard tutor.html'">
+  <button class="btn tutor" onclick="location.href='tutor.html'">
     👨‍🏫 Acceso tutores (seguimiento)
   </button>
 
