@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="300" height="300">
+
+  <!-- ENGRANE ROJO -->
+  <circle cx="200" cy="200" r="190" fill="#b1001c"></circle>
+  <circle cx="200" cy="200" r="155" fill="#ffffff"></circle>
+
+  <!-- ARO AZUL -->
+  <circle cx="200" cy="200" r="145" fill="#003a8f"></circle>
+  <circle cx="200" cy="200" r="120" fill="#ffffff"></circle>
+
+  <!-- SEGMENTOS INTERNOS -->
+  <path d="M200 80 A120 120 0 0 1 310 200 L260 200 A60 60 0 0 0 200 140 Z" fill="#00a859"></path>
+  <path d="M200 320 A120 120 0 0 1 90 200 L140 200 A60 60 0 0 0 200 260 Z" fill="#f7931e"></path>
+  <path d="M80 200 A120 120 0 0 1 200 80 L200 140 A60 60 0 0 0 140 200 Z" fill="#1c75bc"></path>
+  <path d="M320 200 A120 120 0 0 1 200 320 L200 260 A60 60 0 0 0 260 200 Z" fill="#ffd200"></path>
+
+  <!-- CÍRCULO CENTRAL -->
+  <circle cx="200" cy="200" r="70" fill="#ffffff" stroke="#c9a24d" stroke-width="8"></circle>
+
+  <!-- TEXTO CBTis -->
+  <text x="200" y="210" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="bold" fill="#c9a24d">
+    CBTis
+  </text>
+
+  <!-- TEXTO 179 -->
+  <text x="200" y="255" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="bold" fill="#c9a24d">
+    179
+  </text>
+
+</svg>
