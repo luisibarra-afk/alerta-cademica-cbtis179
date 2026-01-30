@@ -3,10 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Sistema de Alerta Académica Temprana</title>
 
   <style>
+    *{
+      box-sizing: border-box; /* ⬅️ CLAVE */
+    }
+
     body{
       font-family: Arial, sans-serif;
       background:#f4f4f4;
@@ -22,15 +25,15 @@
       width:100%;
       max-width:420px;
       background:#fff;
-      padding:36px 28px;
+      padding:36px 24px;
       border-radius:16px;
       text-align:center;
       box-shadow:0 8px 22px rgba(0,0,0,.12);
     }
 
     .logo{
-      max-width:130px;
-      margin-bottom:18px;
+      max-width:120px;
+      margin-bottom:16px;
     }
 
     h1{
@@ -42,21 +45,22 @@
     p{
       color:#555;
       font-size:16px;
-      margin-bottom:28px;
+      margin-bottom:26px;
     }
 
-    /* BOTONES GRANDES */
+    /* BOTONES GRANDES Y CONTROLADOS */
     .btn{
       display:block;
       width:100%;
-      padding:24px;            /* ⬅️ tamaño clave */
-      margin:18px 0;
-      font-size:20px;          /* ⬅️ texto grande */
+      padding:22px;              /* grande pero seguro */
+      margin:16px 0;
+      font-size:20px;
       border-radius:14px;
       text-decoration:none;
       font-weight:600;
       cursor:pointer;
       transition:transform .15s ease, opacity .15s ease;
+      text-align:center;
     }
 
     .docente{
@@ -78,26 +82,21 @@
     }
 
     .footer{
-      margin-top:30px;
+      margin-top:28px;
       font-size:12px;
       color:#777;
       line-height:1.5;
     }
 
-    /* AJUSTE FINO SOLO PARA CELULAR */
+    /* AJUSTE FINO PARA CELULAR */
     @media (max-width: 600px){
-
       h1{
         font-size:23px;
       }
 
-      p{
-        font-size:16px;
-      }
-
       .btn{
-        font-size:21px;
-        padding:26px;
+        font-size:19px;
+        padding:22px;
       }
     }
   </style>
@@ -107,13 +106,11 @@
 
   <div class="container">
 
-    <!-- LOGO -->
     <img src="logo.svg" alt="CBTis 179" class="logo">
 
     <h1>Alerta Académica Temprana</h1>
     <p>Sistema institucional de seguimiento y atención académica</p>
 
-    <!-- BOTONES -->
     <a href="formulario_docente.html" class="btn docente">
       👩‍🏫 Levantar reporte académico
     </a>
@@ -122,7 +119,6 @@
       👨‍🏫 Acceso tutores (seguimiento)
     </a>
 
-    <!-- PIE -->
     <div class="footer">
       CBTis 179 · Servicios Escolares<br>
       © Derechos reservados Luis Eduardo Ibarra Hernández<br>
@@ -133,6 +129,5 @@
 
 </body>
 </html>
-
 
 
