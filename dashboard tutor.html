@@ -1,102 +1,289 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Sistema de Alerta Académica Temprana</title>
+  <meta charset="UTF-8">
 
-<style>
-body{
-  font-family: Arial, sans-serif;
-  background:#f4f4f4;
-}
+  <!-- CLAVE PARA CELULAR -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-.container{
-  max-width:650px;
-  margin:60px auto;
-  background:#fff;
-  padding:35px;
-  border-radius:10px;
-  text-align:center;
-  box-shadow:0 0 10px rgba(0,0,0,.1);
-}
+  <title>Dashboard del Tutor – Alerta Académica</title>
 
-.logo{
-  max-width:160px;
-  margin-bottom:15px;
-}
+  <style>
+    body{
+      font-family:Arial,sans-serif;
+      background:#f4f4f4;
+      margin:0;
+      padding:0;
+    }
 
-h1{
-  color:#5a0f1b;
-  margin-bottom:5px;
-}
+    .container{
+      max-width:1100px;
+      margin:20px auto;
+      background:#fff;
+      padding:20px;
+      border-radius:8px;
+    }
 
-p{
-  color:#555;
-  margin-bottom:30px;
-}
+    h2{
+      color:#5a0f1b;
+      text-align:center;
+      margin-bottom:10px;
+    }
 
-.btn{
-  display:block;
-  width:100%;
-  padding:15px;
-  margin:15px 0;
-  font-size:16px;
-  border:none;
-  border-radius:6px;
-  cursor:pointer;
-}
+    #mensaje{
+      text-align:center;
+      color:#666;
+      margin-bottom:15px;
+      font-size:14px;
+    }
 
-.docente{
-  background:#5a0f1b;
-  color:#fff;
-}
+    select{
+      margin:5px;
+      padding:8px;
+      font-size:14px;
+    }
 
-.tutor{
-  background:#444;
-  color:#fff;
-}
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:15px;
+    }
 
-.btn:hover{
-  opacity:.9;
-}
+    th,td{
+      border:1px solid #ccc;
+      padding:8px;
+      font-size:13px;
+      text-align:center;
+    }
 
-.footer{
-  margin-top:30px;
-  font-size:12px;
-  color:#777;
-  line-height:1.4;
-}
-</style>
+    th{
+      background:#5a0f1b;
+      color:#fff;
+    }
+
+    .abierto{background:#fdecea;}
+    .cerrado{background:#f0f0f0;color:#666;}
+
+    button{
+      padding:6px 10px;
+      cursor:pointer;
+      border-radius:4px;
+    }
+
+    /* ===== MODAL ===== */
+    .modal{
+      display:none;
+      position:fixed;
+      top:0;left:0;
+      width:100%;height:100%;
+      background:rgba(0,0,0,.4);
+      justify-content:center;
+      align-items:center;
+      z-index:1000;
+    }
+
+    .modal-content{
+      background:#fff;
+      padding:20px;
+      border-radius:6px;
+      width:90%;
+      max-width:400px;
+    }
+
+    .modal-content textarea{
+      width:100%;
+      height:80px;
+      margin-top:10px;
+      box-sizing:border-box;
+    }
+
+    .modal-actions{
+      text-align:right;
+      margin-top:10px;
+    }
+
+    /* ===== RESPONSIVE TABLA (CELULAR) ===== */
+    @media (max-width: 768px) {
+
+      table, thead, tbody, th, td, tr {
+        display:block;
+      }
+
+      thead {
+        display:none;
+      }
+
+      tr {
+        margin-bottom:15px;
+        border:1px solid #ccc;
+        padding:10px;
+        border-radius:6px;
+      }
+
+      td {
+        border:none;
+        text-align:left;
+        padding:5px 0;
+      }
+
+      td::before {
+        font-weight:bold;
+        display:inline-block;
+        width:120px;
+        content:attr(data-label);
+      }
+    }
+  </style>
 </head>
 
 <body>
 
 <div class="container">
+  <h2>Dashboard del Tutor</h2>
+  <p id="mensaje">Seleccione especialidad, turno y semestre.</p>
 
-  <!-- LOGO -->
-  <img src="./logo.svg" alt="CBTis 179" class="logo">
-
-  <h1>Alerta Académica Temprana</h1>
-  <p>Sistema institucional de seguimiento y atención académica</p>
-
-  <!-- BOTONES -->
-  <button class="btn docente" onclick="location.href='index.html'">
-    👩‍🏫 Levantar reporte académico
-  </button>
-
-  <button class="btn tutor" onclick="location.href='tutor.html'">
-    👨‍🏫 Acceso tutores (seguimiento)
-  </button>
-
-  <!-- PIE -->
-  <div class="footer">
-    CBTis 179 · Servicios Escolares<br>
-    © Derechos reservados Luis Eduardo Ibarra Hernández<br>
-    Uso institucional
+  <!-- FILTROS -->
+  <div style="text-align:center;">
+    <select id="fEspecialidad"><option value="">Especialidad</option></select>
+    <select id="fTurno">
+      <option value="">Turno</option>
+      <option>Matutino</option>
+      <option>Vespertino</option>
+    </select>
+    <select id="fSemestre"><option value="">Semestre</option></select>
   </div>
 
+  <!-- TABLA -->
+  <table>
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Alumno</th>
+        <th>Especialidad</th>
+        <th>Semestre</th>
+        <th>Turno</th>
+        <th>Situación</th>
+        <th>Nivel</th>
+        <th>Estatus</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody id="tabla"></tbody>
+  </table>
 </div>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <h3>Cerrar caso</h3>
+    <p>Observación de cierre:</p>
+    <textarea id="obs"></textarea>
+    <div class="modal-actions">
+      <button onclick="cerrarModal()">Cancelar</button>
+      <button onclick="confirmarCierre()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbyslfpKp-swcK5aMppl757sOyUPyv2Wj1ZpXLNoRZWB56Sf_jsv7Dt8onP00t43ZdpT/exec";
+let datos = [], filaCerrar = null;
+
+fetch(API_URL)
+  .then(r => r.json())
+  .then(j => {
+    datos = j;
+    cargarFiltros(j);
+  });
+
+function cargarFiltros(d){
+  [...new Set(d.map(x => x.especialidad))].forEach(e =>
+    fEspecialidad.innerHTML += `<option>${e}</option>`
+  );
+  [...new Set(d.map(x => x.semestre))].forEach(s =>
+    fSemestre.innerHTML += `<option>${s}</option>`
+  );
+}
+
+function filtrar(){
+  if(!fEspecialidad.value || !fTurno.value || !fSemestre.value){
+    tabla.innerHTML = "";
+    mensaje.style.display = "block";
+    return;
+  }
+
+  mensaje.style.display = "none";
+
+  renderTabla(
+    datos.filter(d =>
+      d.especialidad === fEspecialidad.value &&
+      d.turno === fTurno.value &&
+      d.semestre === fSemestre.value
+    )
+  );
+}
+
+function renderTabla(data){
+  tabla.innerHTML = "";
+
+  data.forEach(d => {
+    tabla.innerHTML += `
+    <tr class="${d.estatus === 'Cerrado' ? 'cerrado' : 'abierto'}">
+      <td data-label="Fecha">${new Date(d.fecha).toLocaleDateString()}</td>
+      <td data-label="Alumno">${d.nombre_alumno}</td>
+      <td data-label="Especialidad">${d.especialidad}</td>
+      <td data-label="Semestre">${d.semestre}</td>
+      <td data-label="Turno">${d.turno}</td>
+      <td data-label="Situación">${d.situacion}</td>
+      <td data-label="Nivel">${d.nivel}</td>
+      <td data-label="Estatus">${d.estatus}</td>
+      <td data-label="Acciones">
+        ${d.estatus === 'Abierto'
+          ? `<button onclick="abrirModal(${d._row})">Cerrar</button>`
+          : '—'}
+      </td>
+    </tr>`;
+  });
+}
+
+function abrirModal(row){
+  filaCerrar = row;
+  obs.value = "";
+  modal.style.display = "flex";
+}
+
+function cerrarModal(){
+  modal.style.display = "none";
+  filaCerrar = null;
+}
+
+function confirmarCierre(){
+  fetch(API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8" },
+    body: new URLSearchParams({
+      action: "cerrar",
+      row: filaCerrar,
+      observacion: obs.value
+    })
+  })
+  .then(r => r.text())
+  .then(resp => {
+    if (resp === "CERRADO") {
+      alert("Caso cerrado correctamente.");
+      location.reload();
+    } else {
+      alert("No se pudo cerrar el caso.");
+    }
+  });
+}
+
+[fEspecialidad, fTurno, fSemestre].forEach(e =>
+  e.addEventListener("change", filtrar)
+);
+</script>
 
 </body>
 </html>
+
 
