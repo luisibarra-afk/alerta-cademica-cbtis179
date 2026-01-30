@@ -1,226 +1,90 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alerta Académica Temprana</title>
 
-  <!-- CLAVE PARA CELULAR -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Alerta Académica Temprana</title>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-    }
-
-    .form-container {
-      max-width: 520px;
-      margin: 30px auto;
-      background: #ffffff;
-      padding: 25px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-
-    h2 {
-      text-align: center;
-      color: #5a0f1b;
-      margin-bottom: 20px;
-      font-size: 22px;
-    }
-
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-      font-size: 14px;
-    }
-
-    input[type="text"],
-    select,
-    textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-      font-size: 14px;
-      box-sizing: border-box;
-    }
-
-    textarea {
-      resize: none;
-    }
-
-    .option-group {
-      margin-top: 8px;
-    }
-
-    .option-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 6px;
-      font-weight: normal;
-      font-size: 14px;
-    }
-
-    .option-item input[type="radio"],
-    .option-item input[type="checkbox"] {
-      width: auto;
-      margin: 0;
-      transform: scale(1.1);
-    }
-
-    button {
-      margin-top: 25px;
-      width: 100%;
-      padding: 14px;
-      background-color: #5a0f1b;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #7a1a2a;
-    }
-
-    .nota {
-      font-size: 12px;
-      color: #555;
-      margin-top: 12px;
-      text-align: center;
-    }
-
-    /* ===== AJUSTES PARA CELULAR ===== */
-    @media (max-width: 600px) {
-      .form-container {
-        margin: 15px;
-        padding: 20px;
-      }
-
-      h2 {
-        font-size: 20px;
-      }
-    }
-  </style>
+<style>
+body{font-family:Arial;background:#f4f4f4}
+.form-container{max-width:520px;margin:30px auto;background:#fff;padding:25px;border-radius:8px}
+h2{text-align:center;color:#5a0f1b}
+label{font-weight:bold;margin-top:12px;display:block}
+input,select,textarea{width:100%;padding:10px;margin-top:5px}
+button{margin-top:20px;width:100%;padding:14px;background:#5a0f1b;color:#fff;border:none}
+</style>
 </head>
 
 <body>
-
 <div class="form-container">
-  <h2>Alerta Académica Temprana</h2>
+<h2>Alerta Académica Temprana</h2>
 
-  <!-- FORMULARIO -->
-  <form id="alertaForm">
+<form id="alertaForm">
+<label>Nombre del alumno</label>
+<input type="text" name="nombre_alumno" required>
 
-    <label>Número de control (opcional)</label>
-    <input type="text" name="numero_control" placeholder="Si lo conoce">
+<label>Especialidad</label>
+<select name="especialidad" required>
+<option value="">Seleccione</option>
+<option>Ciberseguridad</option>
+<option>Administración</option>
+<option>Arquitectura</option>
+<option>Trabajo Social</option>
+<option>Electricidad</option>
+<option>Mecatrónica</option>
+<option>Programación</option>
+</select>
 
-    <label>Nombre del alumno</label>
-    <input type="text" name="nombre_alumno" required>
+<label>Semestre</label>
+<select name="semestre" required>
+<option value="">Seleccione</option>
+<option>1</option><option>2</option><option>3</option>
+<option>4</option><option>5</option><option>6</option>
+</select>
 
-    <label>Especialidad</label>
-    <select name="especialidad" required>
-      <option value="">Seleccione</option>
-      <option>Ciberseguridad</option>
-      <option>Administración</option>
-      <option>Arquitectura</option>
-      <option>Trabajo Social</option>
-      <option>Electricidad</option>
-      <option>Mecatrónica</option>
-      <option>Programación</option>
-    </select>
+<label>Turno</label>
+<select name="turno" required>
+<option value="">Seleccione</option>
+<option>Matutino</option>
+<option>Vespertino</option>
+</select>
 
-    <label>Semestre</label>
-    <select name="semestre" required>
-      <option value="">Seleccione</option>
-      <option>1°</option>
-      <option>2°</option>
-      <option>3°</option>
-      <option>4°</option>
-      <option>5°</option>
-      <option>6°</option>
-    </select>
+<label>Situación detectada</label>
+<select name="situacion" required>
+<option value="">Seleccione</option>
+<option>Riesgo académico</option>
+<option>Ausentismo</option>
+<option>Indisciplina</option>
+</select>
 
-    <label>Turno</label>
-    <div class="option-group">
-      <label class="option-item">
-        <input type="radio" name="turno" value="Matutino" required>
-        Matutino
-      </label>
-      <label class="option-item">
-        <input type="radio" name="turno" value="Vespertino">
-        Vespertino
-      </label>
-    </div>
+<label>Nivel</label>
+<select name="nivel" required>
+<option value="">Seleccione</option>
+<option>🟢 Preventivo</option>
+<option>🟡 Requiere seguimiento</option>
+<option>🔴 Urgente</option>
+</select>
 
-    <label>Situación detectada</label>
-    <div class="option-group">
-      <label class="option-item">
-        <input type="checkbox" name="situacion" value="Riesgo académico">
-        Riesgo académico
-      </label>
-      <label class="option-item">
-        <input type="checkbox" name="situacion" value="Ausentismo">
-        Ausentismo
-      </label>
-      <label class="option-item">
-        <input type="checkbox" name="situacion" value="Indisciplina">
-        Indisciplina
-      </label>
-    </div>
+<label>Comentario</label>
+<textarea name="comentario"></textarea>
 
-    <label>Nivel de atención</label>
-    <select name="nivel" required>
-      <option value="">Seleccione</option>
-      <option>🟢 Preventivo</option>
-      <option>🟡 Requiere seguimiento</option>
-      <option>🔴 Urgente</option>
-    </select>
-
-    <label>Comentario breve (opcional)</label>
-    <textarea name="comentario" rows="2" maxlength="200"></textarea>
-
-    <button type="submit">Enviar reporte</button>
-
-    <div class="nota">
-      Este reporte tiene fines preventivos y de acompañamiento académico.
-    </div>
-
-  </form>
+<button type="submit">Enviar reporte</button>
+</form>
 </div>
 
-<!-- SCRIPT DE ENVÍO -->
 <script>
-  const form = document.getElementById("alertaForm");
-
-  form.addEventListener("submit", function(e) {
-    e.preventDefault();
-
-    const formData = new FormData(form);
-
-    fetch("https://script.google.com/macros/s/AKfycbx2ycn0X_pO9DAQMrI7QIq332clW4sFNfrATKcQN-KnENptJDSiPWLx1qsaJE8aNmRl/exec", {
-      method: "POST",
-      body: formData
-    })
-    .then(() => {
-      alert("Reporte enviado correctamente");
-      form.reset();
-    })
-    .catch(() => {
-      alert("Error al enviar el reporte");
-    });
-  });
+document.getElementById("alertaForm").addEventListener("submit", e=>{
+e.preventDefault();
+fetch("https://script.google.com/macros/s/AKfycbwHA-E4SROKyurYKKXyjrenCrarcbzdj3QFBo9L3dUuwiFxOJSOPUfAb19stAzVCCEh/exec
+",{
+method:"POST",
+body:new FormData(e.target)
+}).then(()=>{
+alert("Reporte enviado");
+e.target.reset();
+});
+});
 </script>
-
 </body>
 </html>
-
 
