@@ -1,102 +1,224 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Sistema de Alerta Académica Temprana</title>
+  <meta charset="UTF-8">
 
-<style>
-body{
-  font-family: Arial, sans-serif;
-  background:#f4f4f4;
-}
+  <!-- CLAVE PARA CELULAR -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-.container{
-  max-width:650px;
-  margin:60px auto;
-  background:#fff;
-  padding:35px;
-  border-radius:10px;
-  text-align:center;
-  box-shadow:0 0 10px rgba(0,0,0,.1);
-}
+  <title>Alerta Académica Temprana</title>
 
-.logo{
-  max-width:160px;
-  margin-bottom:15px;
-}
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
 
-h1{
-  color:#5a0f1b;
-  margin-bottom:5px;
-}
+    .form-container {
+      max-width: 520px;
+      margin: 30px auto;
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
 
-p{
-  color:#555;
-  margin-bottom:30px;
-}
+    h2 {
+      text-align: center;
+      color: #5a0f1b;
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
 
-.btn{
-  display:block;
-  width:100%;
-  padding:15px;
-  margin:15px 0;
-  font-size:16px;
-  border:none;
-  border-radius:6px;
-  cursor:pointer;
-}
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 14px;
+    }
 
-.docente{
-  background:#5a0f1b;
-  color:#fff;
-}
+    input[type="text"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
 
-.tutor{
-  background:#444;
-  color:#fff;
-}
+    textarea {
+      resize: none;
+    }
 
-.btn:hover{
-  opacity:.9;
-}
+    .option-group {
+      margin-top: 8px;
+    }
 
-.footer{
-  margin-top:30px;
-  font-size:12px;
-  color:#777;
-  line-height:1.4;
-}
-</style>
+    .option-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+      font-weight: normal;
+      font-size: 14px;
+    }
+
+    .option-item input[type="radio"],
+    .option-item input[type="checkbox"] {
+      width: auto;
+      margin: 0;
+      transform: scale(1.1);
+    }
+
+    button {
+      margin-top: 25px;
+      width: 100%;
+      padding: 14px;
+      background-color: #5a0f1b;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #7a1a2a;
+    }
+
+    .nota {
+      font-size: 12px;
+      color: #555;
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    /* ===== AJUSTES PARA CELULAR ===== */
+    @media (max-width: 600px) {
+      .form-container {
+        margin: 15px;
+        padding: 20px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="form-container">
+  <h2>Alerta Académica Temprana</h2>
 
-  <!-- LOGO -->
-  <img src="./logo.svg" alt="CBTis 179" class="logo">
+  <!-- FORMULARIO -->
+  <form id="alertaForm">
 
-  <h1>Alerta Académica Temprana</h1>
-  <p>Sistema institucional de seguimiento y atención académica</p>
+    <label>Número de control (opcional)</label>
+    <input type="text" name="numero_control" placeholder="Si lo conoce">
 
-  <!-- BOTONES -->
-  <button class="btn docente" onclick="location.href='index.html'">
-    👩‍🏫 Levantar reporte académico
-  </button>
+    <label>Nombre del alumno</label>
+    <input type="text" name="nombre_alumno" required>
 
-  <button class="btn tutor" onclick="location.href='tutor.html'">
-    👨‍🏫 Acceso tutores (seguimiento)
-  </button>
+    <label>Especialidad</label>
+    <select name="especialidad" required>
+      <option value="">Seleccione</option>
+      <option>Ciberseguridad</option>
+      <option>Administración</option>
+      <option>Arquitectura</option>
+      <option>Trabajo Social</option>
+      <option>Electricidad</option>
+      <option>Mecatrónica</option>
+      <option>Programación</option>
+    </select>
 
-  <!-- PIE -->
-  <div class="footer">
-    CBTis 179 · Servicios Escolares<br>
-    © Derechos reservados Luis Eduardo Ibarra Hernández<br>
-    Uso institucional
-  </div>
+    <label>Semestre</label>
+    <select name="semestre" required>
+      <option value="">Seleccione</option>
+      <option>1°</option>
+      <option>2°</option>
+      <option>3°</option>
+      <option>4°</option>
+      <option>5°</option>
+      <option>6°</option>
+    </select>
 
+    <label>Turno</label>
+    <div class="option-group">
+      <label class="option-item">
+        <input type="radio" name="turno" value="Matutino" required>
+        Matutino
+      </label>
+      <label class="option-item">
+        <input type="radio" name="turno" value="Vespertino">
+        Vespertino
+      </label>
+    </div>
+
+    <label>Situación detectada</label>
+    <div class="option-group">
+      <label class="option-item">
+        <input type="checkbox" name="situacion" value="Riesgo académico">
+        Riesgo académico
+      </label>
+      <label class="option-item">
+        <input type="checkbox" name="situacion" value="Ausentismo">
+        Ausentismo
+      </label>
+      <label class="option-item">
+        <input type="checkbox" name="situacion" value="Indisciplina">
+        Indisciplina
+      </label>
+    </div>
+
+    <label>Nivel de atención</label>
+    <select name="nivel" required>
+      <option value="">Seleccione</option>
+      <option>🟢 Preventivo</option>
+      <option>🟡 Requiere seguimiento</option>
+      <option>🔴 Urgente</option>
+    </select>
+
+    <label>Comentario breve (opcional)</label>
+    <textarea name="comentario" rows="2" maxlength="200"></textarea>
+
+    <button type="submit">Enviar reporte</button>
+
+    <div class="nota">
+      Este reporte tiene fines preventivos y de acompañamiento académico.
+    </div>
+
+  </form>
 </div>
+
+<!-- SCRIPT DE ENVÍO -->
+<script>
+  const form = document.getElementById("alertaForm");
+
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+
+    fetch("https://script.google.com/macros/s/AKfycbyslfpKp-swcK5aMppl757sOyUPyv2Wj1ZpXLNoRZWB56Sf_jsv7Dt8onP00t43ZdpT/exec", {
+      method: "POST",
+      body: formData
+    })
+    .then(() => {
+      alert("Reporte enviado correctamente");
+      form.reset();
+    })
+    .catch(() => {
+      alert("Error al enviar el reporte");
+    });
+  });
+</script>
 
 </body>
 </html>
-
