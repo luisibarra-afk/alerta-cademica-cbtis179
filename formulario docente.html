@@ -2,89 +2,101 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alerta Académica Temprana</title>
+<title>Sistema de Alerta Académica Temprana</title>
 
 <style>
-body{font-family:Arial;background:#f4f4f4}
-.form-container{max-width:520px;margin:30px auto;background:#fff;padding:25px;border-radius:8px}
-h2{text-align:center;color:#5a0f1b}
-label{font-weight:bold;margin-top:12px;display:block}
-input,select,textarea{width:100%;padding:10px;margin-top:5px}
-button{margin-top:20px;width:100%;padding:14px;background:#5a0f1b;color:#fff;border:none}
+body{
+  font-family: Arial, sans-serif;
+  background:#f4f4f4;
+}
+
+.container{
+  max-width:650px;
+  margin:60px auto;
+  background:#fff;
+  padding:35px;
+  border-radius:10px;
+  text-align:center;
+  box-shadow:0 0 10px rgba(0,0,0,.1);
+}
+
+.logo{
+  max-width:160px;
+  margin-bottom:15px;
+}
+
+h1{
+  color:#5a0f1b;
+  margin-bottom:5px;
+}
+
+p{
+  color:#555;
+  margin-bottom:30px;
+}
+
+.btn{
+  display:block;
+  width:100%;
+  padding:15px;
+  margin:15px 0;
+  font-size:16px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.docente{
+  background:#5a0f1b;
+  color:#fff;
+}
+
+.tutor{
+  background:#444;
+  color:#fff;
+}
+
+.btn:hover{
+  opacity:.9;
+}
+
+.footer{
+  margin-top:30px;
+  font-size:12px;
+  color:#777;
+  line-height:1.4;
+}
 </style>
 </head>
 
 <body>
-<div class="form-container">
-<h2>Alerta Académica Temprana</h2>
 
-<form id="alertaForm">
-<label>Nombre del alumno</label>
-<input type="text" name="nombre_alumno" required>
+<div class="container">
 
-<label>Especialidad</label>
-<select name="especialidad" required>
-<option value="">Seleccione</option>
-<option>Ciberseguridad</option>
-<option>Administración</option>
-<option>Arquitectura</option>
-<option>Trabajo Social</option>
-<option>Electricidad</option>
-<option>Mecatrónica</option>
-<option>Programación</option>
-</select>
+  <!-- LOGO -->
+  <img src="./logo.svg" alt="CBTis 179" class="logo">
 
-<label>Semestre</label>
-<select name="semestre" required>
-<option value="">Seleccione</option>
-<option>1</option><option>2</option><option>3</option>
-<option>4</option><option>5</option><option>6</option>
-</select>
+  <h1>Alerta Académica Temprana</h1>
+  <p>Sistema institucional de seguimiento y atención académica</p>
 
-<label>Turno</label>
-<select name="turno" required>
-<option value="">Seleccione</option>
-<option>Matutino</option>
-<option>Vespertino</option>
-</select>
+  <!-- BOTONES -->
+  <button class="btn docente" onclick="location.href='index.html'">
+    👩‍🏫 Levantar reporte académico
+  </button>
 
-<label>Situación detectada</label>
-<select name="situacion" required>
-<option value="">Seleccione</option>
-<option>Riesgo académico</option>
-<option>Ausentismo</option>
-<option>Indisciplina</option>
-</select>
+  <button class="btn tutor" onclick="location.href='tutor.html'">
+    👨‍🏫 Acceso tutores (seguimiento)
+  </button>
 
-<label>Nivel</label>
-<select name="nivel" required>
-<option value="">Seleccione</option>
-<option>🟢 Preventivo</option>
-<option>🟡 Requiere seguimiento</option>
-<option>🔴 Urgente</option>
-</select>
+  <!-- PIE -->
+  <div class="footer">
+    CBTis 179 · Servicios Escolares<br>
+    © Derechos reservados Luis Eduardo Ibarra Hernández<br>
+    Uso institucional
+  </div>
 
-<label>Comentario</label>
-<textarea name="comentario"></textarea>
-
-<button type="submit">Enviar reporte</button>
-</form>
 </div>
 
-<script>
-document.getElementById("alertaForm").addEventListener("submit", e=>{
-e.preventDefault();
-fetch("https://script.google.com/macros/s/AKfycbwHA-E4SROKyurYKKXyjrenCrarcbzdj3QFBo9L3dUuwiFxOJSOPUfAb19stAzVCCEh/exec
-",{
-method:"POST",
-body:new FormData(e.target)
-}).then(()=>{
-alert("Reporte enviado");
-e.target.reset();
-});
-});
-</script>
 </body>
 </html>
 
