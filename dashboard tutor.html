@@ -2,88 +2,101 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard Tutor</title>
+<title>Sistema de Alerta Académica Temprana</title>
 
 <style>
-body{font-family:Arial;background:#f4f4f4}
-.container{max-width:1100px;margin:20px auto;background:#fff;padding:20px}
-h2{text-align:center;color:#5a0f1b}
-select{padding:8px;margin:5px}
-table{width:100%;border-collapse:collapse;margin-top:15px}
-th,td{border:1px solid #ccc;padding:8px;text-align:center}
-th{background:#5a0f1b;color:#fff}
+body{
+  font-family: Arial, sans-serif;
+  background:#f4f4f4;
+}
+
+.container{
+  max-width:650px;
+  margin:60px auto;
+  background:#fff;
+  padding:35px;
+  border-radius:10px;
+  text-align:center;
+  box-shadow:0 0 10px rgba(0,0,0,.1);
+}
+
+.logo{
+  max-width:160px;
+  margin-bottom:15px;
+}
+
+h1{
+  color:#5a0f1b;
+  margin-bottom:5px;
+}
+
+p{
+  color:#555;
+  margin-bottom:30px;
+}
+
+.btn{
+  display:block;
+  width:100%;
+  padding:15px;
+  margin:15px 0;
+  font-size:16px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.docente{
+  background:#5a0f1b;
+  color:#fff;
+}
+
+.tutor{
+  background:#444;
+  color:#fff;
+}
+
+.btn:hover{
+  opacity:.9;
+}
+
+.footer{
+  margin-top:30px;
+  font-size:12px;
+  color:#777;
+  line-height:1.4;
+}
 </style>
 </head>
 
 <body>
+
 <div class="container">
-<h2>Dashboard del Tutor</h2>
 
-<div style="text-align:center">
-<select id="fEspecialidad"><option value="">Especialidad</option></select>
-<select id="fTurno">
-<option value="">Turno</option>
-<option>Matutino</option>
-<option>Vespertino</option>
-</select>
-<select id="fSemestre">
-<option value="">Semestre</option>
-<option value="1">1</option><option value="2">2</option>
-<option value="3">3</option><option value="4">4</option>
-<option value="5">5</option><option value="6">6</option>
-</select>
+  <!-- LOGO -->
+  <img src="./logo.svg" alt="CBTis 179" class="logo">
+
+  <h1>Alerta Académica Temprana</h1>
+  <p>Sistema institucional de seguimiento y atención académica</p>
+
+  <!-- BOTONES -->
+  <button class="btn docente" onclick="location.href='index.html'">
+    👩‍🏫 Levantar reporte académico
+  </button>
+
+  <button class="btn tutor" onclick="location.href='tutor.html'">
+    👨‍🏫 Acceso tutores (seguimiento)
+  </button>
+
+  <!-- PIE -->
+  <div class="footer">
+    CBTis 179 · Servicios Escolares<br>
+    © Derechos reservados Luis Eduardo Ibarra Hernández<br>
+    Uso institucional
+  </div>
+
 </div>
 
-<table>
-<thead>
-<tr>
-<th>Fecha</th><th>Alumno</th><th>Especialidad</th>
-<th>Semestre</th><th>Turno</th><th>Situación</th>
-<th>Nivel</th><th>Estatus</th>
-</tr>
-</thead>
-<tbody id="tabla"></tbody>
-</table>
-</div>
-
-<script>
-const API_URL = "https://script.google.com/macros/s/AKfycbwHA-E4SROKyurYKKXyjrenCrarcbzdj3QFBo9L3dUuwiFxOJSOPUfAb19stAzVCCEh/exec
-";
-let datos=[];
-
-fetch(API_URL).then(r=>r.json()).then(j=>{
-datos=j;
-[...new Set(j.map(x=>x.especialidad))].forEach(e=>{
-fEspecialidad.innerHTML+=`<option>${e}</option>`;
-});
-});
-
-function filtrar(){
-if(!fEspecialidad.value||!fTurno.value||!fSemestre.value){
-tabla.innerHTML="<tr><td colspan='8'>Seleccione filtros</td></tr>";
-return;
-}
-const r=datos.filter(d=>
-d.especialidad===fEspecialidad.value &&
-d.turno===fTurno.value &&
-d.semestre===fSemestre.value
-);
-tabla.innerHTML=r.length?r.map(d=>`
-<tr>
-<td>${new Date(d.fecha).toLocaleDateString()}</td>
-<td>${d.nombre_alumno}</td>
-<td>${d.especialidad}</td>
-<td>${d.semestre}</td>
-<td>${d.turno}</td>
-<td>${d.situacion}</td>
-<td>${d.nivel}</td>
-<td>${d.estatus}</td>
-</tr>`).join(""):"<tr><td colspan='8'>Sin resultados</td></tr>";
-}
-
-[fEspecialidad,fTurno,fSemestre].forEach(e=>e.onchange=filtrar);
-</script>
 </body>
 </html>
 
