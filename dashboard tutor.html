@@ -2,10 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-
-  <!-- CLAVE PARA CELULAR -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Dashboard del Tutor – Alerta Académica</title>
 
   <style>
@@ -27,7 +24,6 @@
     h2{
       color:#5a0f1b;
       text-align:center;
-      margin-bottom:10px;
     }
 
     #mensaje{
@@ -69,70 +65,6 @@
       cursor:pointer;
       border-radius:4px;
     }
-
-    /* ===== MODAL ===== */
-    .modal{
-      display:none;
-      position:fixed;
-      top:0;left:0;
-      width:100%;height:100%;
-      background:rgba(0,0,0,.4);
-      justify-content:center;
-      align-items:center;
-      z-index:1000;
-    }
-
-    .modal-content{
-      background:#fff;
-      padding:20px;
-      border-radius:6px;
-      width:90%;
-      max-width:400px;
-    }
-
-    .modal-content textarea{
-      width:100%;
-      height:80px;
-      margin-top:10px;
-      box-sizing:border-box;
-    }
-
-    .modal-actions{
-      text-align:right;
-      margin-top:10px;
-    }
-
-    /* ===== RESPONSIVE TABLA (CELULAR) ===== */
-    @media (max-width: 768px) {
-
-      table, thead, tbody, th, td, tr {
-        display:block;
-      }
-
-      thead {
-        display:none;
-      }
-
-      tr {
-        margin-bottom:15px;
-        border:1px solid #ccc;
-        padding:10px;
-        border-radius:6px;
-      }
-
-      td {
-        border:none;
-        text-align:left;
-        padding:5px 0;
-      }
-
-      td::before {
-        font-weight:bold;
-        display:inline-block;
-        width:120px;
-        content:attr(data-label);
-      }
-    }
   </style>
 </head>
 
@@ -144,13 +76,25 @@
 
   <!-- FILTROS -->
   <div style="text-align:center;">
-    <select id="fEspecialidad"><option value="">Especialidad</option></select>
+    <select id="fEspecialidad">
+      <option value="">Especialidad</option>
+    </select>
+
     <select id="fTurno">
       <option value="">Turno</option>
-      <option>Matutino</option>
-      <option>Vespertino</option>
+      <option value="Matutino">Matutino</option>
+      <option value="Vespertino">Vespertino</option>
     </select>
-    <select id="fSemestre"><option value="">Semestre</option></select>
+
+    <select id="fSemestre">
+      <option value="">Semestre</option>
+      <option value="1">1°</option>
+      <option value="2">2°</option>
+      <option value="3">3°</option>
+      <option value="4">4°</option>
+      <option value="5">5°</option>
+      <option value="6">6°</option>
+    </select>
   </div>
 
   <!-- TABLA -->
@@ -172,19 +116,6 @@
   </table>
 </div>
 
-<!-- MODAL -->
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <h3>Cerrar caso</h3>
-    <p>Observación de cierre:</p>
-    <textarea id="obs"></textarea>
-    <div class="modal-actions">
-      <button onclick="cerrarModal()">Cancelar</button>
-      <button onclick="confirmarCierre()">Guardar</button>
-    </div>
-  </div>
-</div>
-
 <script>
 const API_URL = "https://script.google.com/macros/s/AKfycbw0bYzI8CoxDDnNhO90Y0_TzzeNQ7WXB1Xw7uWqQ17ob7K941PsqevYAypsJZRS4ig6/exec";
 let datos = [], filaCerrar = null;
@@ -193,16 +124,18 @@ fetch(API_URL)
   .then(r => r.json())
   .then(j => {
     datos = j;
-    cargarFiltros(j);
+    cargarEspecialidades(j);
   });
 
-function cargarFiltros(d){
-  [...new Set(d.map(x => x.especialidad))].forEach(e =>
-    fEspecialidad.innerHTML += `<option>${e}</option>`
-  );
-  [...new Set(d.map(x => x.semestre))].forEach(s =>
-    fSemestre.innerHTML += `<option>${s}</option>`
-  );
+function limpiarSemestre(valor){
+  return valor.toString().replace("°","").trim();
+}
+
+function cargarEspecialidades(d){
+  const unicos = [...new Set(d.map(x => x.especialidad))];
+  unicos.forEach(e => {
+    fEspecialidad.innerHTML += `<option value="${e}">${e}</option>`;
+  });
 }
 
 function filtrar(){
@@ -214,67 +147,37 @@ function filtrar(){
 
   mensaje.style.display = "none";
 
-  renderTabla(
-    datos.filter(d =>
-      d.especialidad === fEspecialidad.value &&
-      d.turno === fTurno.value &&
-      d.semestre === fSemestre.value
-    )
+  const filtrados = datos.filter(d =>
+    d.especialidad === fEspecialidad.value &&
+    d.turno === fTurno.value &&
+    limpiarSemestre(d.semestre) === fSemestre.value
   );
+
+  renderTabla(filtrados);
 }
 
 function renderTabla(data){
   tabla.innerHTML = "";
 
+  if(data.length === 0){
+    tabla.innerHTML = `<tr><td colspan="9">No hay reportes para los filtros seleccionados</td></tr>`;
+    return;
+  }
+
   data.forEach(d => {
     tabla.innerHTML += `
-    <tr class="${d.estatus === 'Cerrado' ? 'cerrado' : 'abierto'}">
-      <td data-label="Fecha">${new Date(d.fecha).toLocaleDateString()}</td>
-      <td data-label="Alumno">${d.nombre_alumno}</td>
-      <td data-label="Especialidad">${d.especialidad}</td>
-      <td data-label="Semestre">${d.semestre}</td>
-      <td data-label="Turno">${d.turno}</td>
-      <td data-label="Situación">${d.situacion}</td>
-      <td data-label="Nivel">${d.nivel}</td>
-      <td data-label="Estatus">${d.estatus}</td>
-      <td data-label="Acciones">
-        ${d.estatus === 'Abierto'
-          ? `<button onclick="abrirModal(${d._row})">Cerrar</button>`
-          : '—'}
-      </td>
-    </tr>`;
-  });
-}
-
-function abrirModal(row){
-  filaCerrar = row;
-  obs.value = "";
-  modal.style.display = "flex";
-}
-
-function cerrarModal(){
-  modal.style.display = "none";
-  filaCerrar = null;
-}
-
-function confirmarCierre(){
-  fetch(API_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8" },
-    body: new URLSearchParams({
-      action: "cerrar",
-      row: filaCerrar,
-      observacion: obs.value
-    })
-  })
-  .then(r => r.text())
-  .then(resp => {
-    if (resp === "CERRADO") {
-      alert("Caso cerrado correctamente.");
-      location.reload();
-    } else {
-      alert("No se pudo cerrar el caso.");
-    }
+      <tr class="${d.estatus === 'Cerrado' ? 'cerrado' : 'abierto'}">
+        <td>${new Date(d.fecha).toLocaleDateString()}</td>
+        <td>${d.nombre_alumno}</td>
+        <td>${d.especialidad}</td>
+        <td>${d.semestre}</td>
+        <td>${d.turno}</td>
+        <td>${d.situacion}</td>
+        <td>${d.nivel}</td>
+        <td>${d.estatus}</td>
+        <td>${d.estatus === 'Abierto' ? '—' : '—'}</td>
+      </tr>
+    `;
   });
 }
 
