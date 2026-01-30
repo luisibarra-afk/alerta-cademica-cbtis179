@@ -1,192 +1,89 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard del Tutor – Alerta Académica</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Tutor</title>
 
-  <style>
-    body{
-      font-family:Arial,sans-serif;
-      background:#f4f4f4;
-      margin:0;
-      padding:0;
-    }
-
-    .container{
-      max-width:1100px;
-      margin:20px auto;
-      background:#fff;
-      padding:20px;
-      border-radius:8px;
-    }
-
-    h2{
-      color:#5a0f1b;
-      text-align:center;
-    }
-
-    #mensaje{
-      text-align:center;
-      color:#666;
-      margin-bottom:15px;
-      font-size:14px;
-    }
-
-    select{
-      margin:5px;
-      padding:8px;
-      font-size:14px;
-    }
-
-    table{
-      width:100%;
-      border-collapse:collapse;
-      margin-top:15px;
-    }
-
-    th,td{
-      border:1px solid #ccc;
-      padding:8px;
-      font-size:13px;
-      text-align:center;
-    }
-
-    th{
-      background:#5a0f1b;
-      color:#fff;
-    }
-
-    .abierto{background:#fdecea;}
-    .cerrado{background:#f0f0f0;color:#666;}
-
-    button{
-      padding:6px 10px;
-      cursor:pointer;
-      border-radius:4px;
-    }
-  </style>
+<style>
+body{font-family:Arial;background:#f4f4f4}
+.container{max-width:1100px;margin:20px auto;background:#fff;padding:20px}
+h2{text-align:center;color:#5a0f1b}
+select{padding:8px;margin:5px}
+table{width:100%;border-collapse:collapse;margin-top:15px}
+th,td{border:1px solid #ccc;padding:8px;text-align:center}
+th{background:#5a0f1b;color:#fff}
+</style>
 </head>
 
 <body>
-
 <div class="container">
-  <h2>Dashboard del Tutor</h2>
-  <p id="mensaje">Seleccione especialidad, turno y semestre.</p>
+<h2>Dashboard del Tutor</h2>
 
-  <!-- FILTROS -->
-  <div style="text-align:center;">
-    <select id="fEspecialidad">
-      <option value="">Especialidad</option>
-    </select>
+<div style="text-align:center">
+<select id="fEspecialidad"><option value="">Especialidad</option></select>
+<select id="fTurno">
+<option value="">Turno</option>
+<option>Matutino</option>
+<option>Vespertino</option>
+</select>
+<select id="fSemestre">
+<option value="">Semestre</option>
+<option value="1">1</option><option value="2">2</option>
+<option value="3">3</option><option value="4">4</option>
+<option value="5">5</option><option value="6">6</option>
+</select>
+</div>
 
-    <select id="fTurno">
-      <option value="">Turno</option>
-      <option value="Matutino">Matutino</option>
-      <option value="Vespertino">Vespertino</option>
-    </select>
-
-    <select id="fSemestre">
-      <option value="">Semestre</option>
-      <option value="1">1°</option>
-      <option value="2">2°</option>
-      <option value="3">3°</option>
-      <option value="4">4°</option>
-      <option value="5">5°</option>
-      <option value="6">6°</option>
-    </select>
-  </div>
-
-  <!-- TABLA -->
-  <table>
-    <thead>
-      <tr>
-        <th>Fecha</th>
-        <th>Alumno</th>
-        <th>Especialidad</th>
-        <th>Semestre</th>
-        <th>Turno</th>
-        <th>Situación</th>
-        <th>Nivel</th>
-        <th>Estatus</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody id="tabla"></tbody>
-  </table>
+<table>
+<thead>
+<tr>
+<th>Fecha</th><th>Alumno</th><th>Especialidad</th>
+<th>Semestre</th><th>Turno</th><th>Situación</th>
+<th>Nivel</th><th>Estatus</th>
+</tr>
+</thead>
+<tbody id="tabla"></tbody>
+</table>
 </div>
 
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbx2ycn0X_pO9DAQMrI7QIq332clW4sFNfrATKcQN-KnENptJDSiPWLx1qsaJE8aNmRl/exec";
-let datos = [], filaCerrar = null;
+const API_URL = "https://script.google.com/macros/s/AKfycbwHA-E4SROKyurYKKXyjrenCrarcbzdj3QFBo9L3dUuwiFxOJSOPUfAb19stAzVCCEh/exec
+";
+let datos=[];
 
-fetch(API_URL)
-  .then(r => r.json())
-  .then(j => {
-    datos = j;
-    cargarEspecialidades(j);
-  });
-
-function limpiarSemestre(valor){
-  return valor.toString().replace("°","").trim();
-}
-
-function cargarEspecialidades(d){
-  const unicos = [...new Set(d.map(x => x.especialidad))];
-  unicos.forEach(e => {
-    fEspecialidad.innerHTML += `<option value="${e}">${e}</option>`;
-  });
-}
+fetch(API_URL).then(r=>r.json()).then(j=>{
+datos=j;
+[...new Set(j.map(x=>x.especialidad))].forEach(e=>{
+fEspecialidad.innerHTML+=`<option>${e}</option>`;
+});
+});
 
 function filtrar(){
-  if(!fEspecialidad.value || !fTurno.value || !fSemestre.value){
-    tabla.innerHTML = "";
-    mensaje.style.display = "block";
-    return;
-  }
-
-  mensaje.style.display = "none";
-
-  const filtrados = datos.filter(d =>
-    d.especialidad === fEspecialidad.value &&
-    d.turno === fTurno.value &&
-    limpiarSemestre(d.semestre) === fSemestre.value
-  );
-
-  renderTabla(filtrados);
+if(!fEspecialidad.value||!fTurno.value||!fSemestre.value){
+tabla.innerHTML="<tr><td colspan='8'>Seleccione filtros</td></tr>";
+return;
 }
-
-function renderTabla(data){
-  tabla.innerHTML = "";
-
-  if(data.length === 0){
-    tabla.innerHTML = `<tr><td colspan="9">No hay reportes para los filtros seleccionados</td></tr>`;
-    return;
-  }
-
-  data.forEach(d => {
-    tabla.innerHTML += `
-      <tr class="${d.estatus === 'Cerrado' ? 'cerrado' : 'abierto'}">
-        <td>${new Date(d.fecha).toLocaleDateString()}</td>
-        <td>${d.nombre_alumno}</td>
-        <td>${d.especialidad}</td>
-        <td>${d.semestre}</td>
-        <td>${d.turno}</td>
-        <td>${d.situacion}</td>
-        <td>${d.nivel}</td>
-        <td>${d.estatus}</td>
-        <td>${d.estatus === 'Abierto' ? '—' : '—'}</td>
-      </tr>
-    `;
-  });
-}
-
-[fEspecialidad, fTurno, fSemestre].forEach(e =>
-  e.addEventListener("change", filtrar)
+const r=datos.filter(d=>
+d.especialidad===fEspecialidad.value &&
+d.turno===fTurno.value &&
+d.semestre===fSemestre.value
 );
-</script>
+tabla.innerHTML=r.length?r.map(d=>`
+<tr>
+<td>${new Date(d.fecha).toLocaleDateString()}</td>
+<td>${d.nombre_alumno}</td>
+<td>${d.especialidad}</td>
+<td>${d.semestre}</td>
+<td>${d.turno}</td>
+<td>${d.situacion}</td>
+<td>${d.nivel}</td>
+<td>${d.estatus}</td>
+</tr>`).join(""):"<tr><td colspan='8'>Sin resultados</td></tr>";
+}
 
+[fEspecialidad,fTurno,fSemestre].forEach(e=>e.onchange=filtrar);
+</script>
 </body>
 </html>
-
 
